@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-bot-admin
+  labels:
+    app: discord-bot-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-bot-admin
+  template:
+    metadata:
+      name: discord-bot-admin
+      labels:
+        app: discord-bot-admin
+    spec:
+      containers:
+        - name: discord-bot-admin
+          image: ghcr.io/zgamelogic/discord-bot-admin:production
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "America/Chicago"
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
